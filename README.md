@@ -324,3 +324,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **⚠️ Disclaimer**: This is a demo application for educational purposes. Use at your own risk and never use real funds on testnet applications.
+#   T r i g g e r   V e r c e l   R e d e p l o y  
+ 
