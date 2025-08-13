@@ -1,12 +1,12 @@
-# 🎰 Lucky Spin FHEVM Demo
+# 🎰 Lucky Spin FHE - Privacy-First Blockchain Game
 
-A secure, verifiable spinning wheel game built with **Zama FHEVM** (Fully Homomorphic Encryption Virtual Machine) that provides confidential rewards and private gameplay.
+A secure, verifiable spinning wheel game built with **Zama FHEVM** (Fully Homomorphic Encryption Virtual Machine) that provides confidential rewards and private gameplay on Ethereum blockchain.
 
 ## 🌟 Features
 
 ### 🔐 **Privacy-First Design**
 - **Encrypted Game State**: All player data (spins, GM tokens, pending ETH, scores) are encrypted on-chain
-- **Private Transactions**: Game actions are performed with encrypted inputs
+- **Private Transactions**: Game actions are performed with encrypted inputs using FHE
 - **Zero-Knowledge Proofs**: Verifiable gameplay without revealing outcomes
 - **User-Decrypt Authorization**: Players control their own data decryption
 
@@ -26,6 +26,7 @@ A secure, verifiable spinning wheel game built with **Zama FHEVM** (Fully Homomo
 ### 🏗️ **Technical Architecture**
 - **Smart Contract**: `LuckySpinFHE_KMS_Final.sol` - Optimized for HCU efficiency
 - **Frontend**: React + TypeScript with FHE SDK integration
+- **Backend**: Express.js API for state aggregation and oracle services
 - **Relayer**: Zama Relayer for encrypted transaction processing
 - **Network**: Sepolia Testnet (Ethereum)
 
@@ -40,28 +41,42 @@ A secure, verifiable spinning wheel game built with **Zama FHEVM** (Fully Homomo
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/your-username/gmspin.git
-cd gmspin
+git clone https://github.com/ntclick/luckyspingameFHE.git
+cd luckyspingameFHE
 ```
 
 2. **Install dependencies**
 ```bash
+# Frontend dependencies
 cd frontend-fhe-spin
+npm install
+
+# Backend dependencies
+cd ../server
 npm install
 ```
 
 3. **Configure environment**
 ```bash
-# Copy .env.example to .env
+# Frontend configuration
+cd frontend-fhe-spin
 cp .env.example .env
+# Edit .env with your configuration
 
-# Update with your configuration
-REACT_APP_FHEVM_CONTRACT_ADDRESS=0x561D05BbaE5a2D93791151D02393CcD26d9749a2
-REACT_APP_RELAYER_URL=https://relayer.testnet.zama.cloud
+# Backend configuration  
+cd ../server
+cp .env.example .env
+# Edit .env with your configuration
 ```
 
 4. **Start the application**
 ```bash
+# Start backend (Terminal 1)
+cd server
+npm start
+
+# Start frontend (Terminal 2)
+cd frontend-fhe-spin
 npm start
 ```
 
@@ -92,12 +107,17 @@ npm start
 - **"Force Refresh"**: Manually reload your game state
 - **Check contract balance**: Ensure the pool has sufficient ETH for prizes
 
-## 🔧 Smart Contract
+## 🔧 Smart Contracts
 
-### Contract Address
+### Contract Addresses
 ```
-Sepolia: 0x561D05BbaE5a2D93791151D02393CcD26d9749a2
+Sepolia: 0x561D05BbaE5a2D93791151D02393CcD26d9749a2 (LuckySpinFHE_KMS_Final)
 ```
+
+### Available Contracts
+1. **`LuckySpinFHE_KMS_Final.sol`** - Main production contract with KMS integration
+2. **`LuckySpinFHE_Strict.sol`** - Backup contract for testing
+3. **`LuckySpinFHE_ACL_Simple.sol`** - ACL testing contract
 
 ### Key Functions
 
@@ -127,20 +147,33 @@ The contract is optimized for minimal Homomorphic Computation Units (HCU) usage:
 
 ### Project Structure
 ```
-gmspin/
+luckyspingameFHE/
 ├── contracts/
-│   └── LuckySpinFHE_KMS_Final.sol    # Main smart contract
+│   ├── LuckySpinFHE_KMS_Final.sol    # Main smart contract
+│   ├── LuckySpinFHE_Strict.sol       # Backup contract
+│   └── LuckySpinFHE_ACL_Simple.sol   # ACL test contract
 ├── frontend-fhe-spin/
 │   ├── src/
 │   │   ├── App.tsx                   # Main React component
+│   │   ├── components/
+│   │   │   ├── SpinWheel.tsx         # Spinning wheel UI
+│   │   │   ├── NetworkWarning.tsx    # Network status
+│   │   │   └── Toast.tsx             # Notifications
 │   │   ├── hooks/
+│   │   │   ├── useFheSdk.ts          # FHE SDK integration
 │   │   │   └── useUserGameState.ts   # Game state management
 │   │   ├── utils/
-│   │   │   └── fheUtils.ts           # FHE utilities
+│   │   │   ├── fheUtils.ts           # FHE utilities
+│   │   │   └── networkUtils.ts       # Network utilities
+│   │   ├── abi/                      # Contract ABIs
 │   │   └── config.ts                 # Configuration
 │   └── public/
-├── deploy/
-│   └── 06b_deploy_kms_final_js.js   # Deployment script
+│       └── wasm/                     # FHE WASM files
+├── server/
+│   ├── index.js                      # Express API server
+│   └── package.json
+├── deploy/                           # Deployment scripts
+├── scripts/                          # Utility scripts
 └── README.md
 ```
 
@@ -175,7 +208,12 @@ npx hardhat run deploy/06b_deploy_kms_final_js.js --network sepolia
 cd frontend-fhe-spin
 npm start
 
+# Start backend
+cd server
+npm start
+
 # Build for production
+cd frontend-fhe-spin
 npm run build
 ```
 
@@ -206,7 +244,51 @@ npm run build
 
 ### Contract Verification
 - **Etherscan**: https://sepolia.etherscan.io/address/0x561D05BbaE5a2D93791151D02393CcD26d9749a2
-- **ABI**: Available in `frontend-fhe-spin/src/utils/fheUtils.ts`
+- **ABI**: Available in `frontend-fhe-spin/src/abi/`
+
+## 📋 Environment Variables
+
+### Frontend (.env)
+```env
+REACT_APP_FHEVM_CONTRACT_ADDRESS=0x561D05BbaE5a2D93791151D02393CcD26d9749a2
+REACT_APP_SEPOLIA_RPC_URL=https://rpc.sepolia.org
+REACT_APP_CHAIN_ID=11155111
+REACT_APP_RELAYER_URL=https://relayer.testnet.zama.cloud
+REACT_APP_BACKEND_API_URL=/api
+REACT_APP_ETHERSCAN_API_KEY=your_etherscan_api_key
+```
+
+### Backend (.env)
+```env
+PORT=4009
+REACT_APP_SEPOLIA_RPC_URL=https://rpc.sepolia.org
+REACT_APP_ETHERSCAN_API_KEY=your_etherscan_api_key
+REACT_APP_RELAYER_URL=https://relayer.testnet.zama.cloud
+REACT_APP_DECRYPTION_ADDRESS=0xb6E160B1ff80D67Bfe90A85eE06Ce0A2613607D1
+REACT_APP_FHEVM_CONTRACT_ADDRESS=0x561D05BbaE5a2D93791151D02393CcD26d9749a2
+ORACLE_PRIVATE_KEY=your_oracle_private_key
+```
+
+## 🚀 Deployment
+
+### Frontend (Vercel/Netlify)
+1. Connect repository to Vercel/Netlify
+2. Set environment variables
+3. Deploy automatically on push
+
+### Backend (Render/Fly.io)
+1. Deploy server to cloud platform
+2. Set environment variables
+3. Update frontend `REACT_APP_BACKEND_API_URL`
+
+### Smart Contract
+```bash
+# Deploy to Sepolia
+npx hardhat run deploy/06b_deploy_kms_final_js.js --network sepolia
+
+# Verify on Etherscan
+npx hardhat verify --network sepolia CONTRACT_ADDRESS
+```
 
 ## 🤝 Contributing
 
@@ -235,9 +317,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/your-username/gmspin/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/gmspin/discussions)
-- **Author**: [@trungkts29](https://x.com/trungkts29)
+- **Issues**: [GitHub Issues](https://github.com/ntclick/luckyspingameFHE/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/ntclick/luckyspingameFHE/discussions)
+- **Author**: [@ntclick](https://github.com/ntclick)
 
 ---
 
