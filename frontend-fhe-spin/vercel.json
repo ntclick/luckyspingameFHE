@@ -1,0 +1,27 @@
+{
+  "env": {
+    "REACT_APP_FHEVM_CONTRACT_ADDRESS": "0xD974B2200fb2723DC2Df33fbCDab52475FC563D5",
+    "REACT_APP_SEPOLIA_RPC_URL": "https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+    "REACT_APP_GATEWAY_CHAIN_ID": "11155111",
+    "REACT_APP_RELAYER_URL": "https://relayer.testnet.zama.cloud",
+    "REACT_APP_ETHERSCAN_API_KEY": "YourEtherscanApiKey"
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "framework": "create-react-app",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "require-corp"
+        }
+      ]
+    }
+  ]
+}

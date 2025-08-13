@@ -1,0 +1,37 @@
+.typing-cursor {
+  animation: blink 1s infinite;
+  color: inherit;
+  font-weight: inherit;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Typing effect cho các button */
+.btn.typing-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn.typing-button:hover .typing-cursor {
+  animation-duration: 0.5s;
+}
+
+/* Hiệu ứng glow khi typing */
+.btn.typing-button.typing {
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Responsive typing speed */
+@media (max-width: 768px) {
+  .typing-cursor {
+    animation-duration: 0.8s;
+  }
+}

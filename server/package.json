@@ -1,0 +1,7 @@
+﻿{"name": "lucky-spin-fhe-server",
+"version": "0.1.0",
+"private": true,
+"engines": { "node": ">=18" },
+"scripts": { "start": "node index.js" },
+"dependencies": { "express": "^5.1.0", "cors": "^2.8.5", "dotenv": "^17.2.1", "ethers": "^6.15.0" }
+}

@@ -1,0 +1,616 @@
+/* ✅ Modern Flatsome-Inspired Spin Wheel Design */
+
+/* ✅ Container */
+.modern-spin-wheel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0;
+  padding: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-spin-wheel-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* ✅ Header */
+.wheel-header {
+  text-align: center;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.wheel-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 15px 0;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -1px;
+}
+
+.spin-counter {
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 8px 20px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* ✅ Main Wheel Container */
+.wheel-main-container {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* ✅ Modern Pointer */
+.modern-pointer {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+}
+
+.pointer-triangle {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 40px solid #e74c3c;
+  filter: drop-shadow(0 4px 8px rgba(231, 76, 60, 0.4));
+  animation: pointerPulse 2s ease-in-out infinite alternate;
+}
+
+.pointer-glow {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 56px;
+  height: 56px;
+  background: radial-gradient(circle, rgba(231, 76, 60, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: glowPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes pointerPulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+/* ✅ Modern Wheel */
+.modern-wheel {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  position: relative;
+  background: #ffffff;
+  border: 12px solid #2c3e50;
+  box-shadow:
+    0 0 0 6px rgba(44, 62, 80, 0.2),
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 6px rgba(255, 255, 255, 0.1);
+  transition: transform 5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+}
+
+.modern-wheel:hover {
+  box-shadow:
+    0 0 0 6px rgba(44, 62, 80, 0.3),
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 6px rgba(255, 255, 255, 0.15);
+}
+
+/* ✅ Wheel Slots - Flatsome Style */
+.modern-wheel-slot {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 0;
+  left: 50%;
+  transform-origin: 0% 100%;
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.modern-wheel-slot::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+}
+
+.modern-wheel-slot:hover::before {
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+}
+
+.modern-wheel-slot:hover {
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+/* ✅ Slot Content */
+.slot-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 85%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.slot-icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.slot-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.slot-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.slot-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.9;
+  line-height: 1;
+}
+
+/* ✅ Center Button */
+.modern-center-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+}
+
+.center-spin-button {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #2c3e50, #34495e);
+  border: 6px solid #e74c3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.center-spin-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.center-spin-button:hover::before {
+  left: 100%;
+}
+
+.center-spin-button:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.button-glow {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 114px;
+  height: 114px;
+  background: radial-gradient(circle, rgba(231, 76, 60, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: buttonGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes buttonGlow {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.spin-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  letter-spacing: 1px;
+  z-index: 1;
+  position: relative;
+}
+
+/* ✅ Result Display */
+.modern-result-display {
+  margin-top: 40px;
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-radius: 25px;
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: resultAppear 0.5s ease-out;
+}
+
+.modern-result-display::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: resultShimmer 2s infinite;
+}
+
+@keyframes resultShimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes resultAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-content {
+  position: relative;
+  z-index: 1;
+}
+
+.result-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.result-prize {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #e74c3c;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.result-message {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+/* ✅ Wheel Stats */
+.wheel-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #4a90e2;
+}
+
+/* ✅ Spinning Animation */
+.modern-wheel.spinning {
+  animation: modernSpinWheel 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes modernSpinWheel {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(var(--final-rotation, 3600deg));
+  }
+}
+
+.modern-wheel-slot.prize-highlight {
+  animation: modernPrizeGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes modernPrizeGlow {
+  0% {
+    box-shadow:
+      inset 0 0 0 2px rgba(0, 0, 0, 0.1),
+      0 0 20px rgba(255, 255, 255, 0.3);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow:
+      inset 0 0 0 2px rgba(0, 0, 0, 0.1),
+      0 0 30px rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
+  }
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+  .modern-spin-wheel-container {
+    margin: 20px 0;
+    padding: 30px;
+  }
+
+  .wheel-title {
+    font-size: 2.2rem;
+  }
+
+  .wheel-main-container {
+    width: 350px;
+    height: 350px;
+  }
+
+  .modern-wheel {
+    width: 300px;
+    height: 300px;
+    border-width: 8px;
+  }
+
+  .center-spin-button {
+    width: 70px;
+    height: 70px;
+  }
+
+  .spin-text {
+    font-size: 1.1rem;
+  }
+
+  .slot-name {
+    font-size: 1rem;
+  }
+
+  .slot-value {
+    font-size: 0.8rem;
+  }
+
+  .modern-pointer {
+    top: -25px;
+  }
+
+  .pointer-triangle {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 30px solid #e74c3c;
+  }
+
+  .wheel-stats {
+    gap: 30px;
+    padding: 15px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modern-spin-wheel-container {
+    margin: 15px 0;
+    padding: 20px;
+  }
+
+  .wheel-title {
+    font-size: 1.8rem;
+  }
+
+  .wheel-main-container {
+    width: 280px;
+    height: 280px;
+  }
+
+  .modern-wheel {
+    width: 240px;
+    height: 240px;
+    border-width: 6px;
+  }
+
+  .center-spin-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .spin-text {
+    font-size: 1rem;
+  }
+
+  .slot-name {
+    font-size: 0.9rem;
+  }
+
+  .slot-value {
+    font-size: 0.7rem;
+  }
+
+  .modern-pointer {
+    top: -20px;
+  }
+
+  .pointer-triangle {
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 24px solid #e74c3c;
+  }
+
+  .modern-result-display {
+    padding: 25px;
+  }
+
+  .result-title {
+    font-size: 1.6rem;
+  }
+
+  .result-prize {
+    font-size: 2.5rem;
+  }
+
+  .result-message {
+    font-size: 1rem;
+  }
+}
+
+/* ✅ Accessibility */
+.modern-wheel:focus {
+  outline: 3px solid #3498db;
+  outline-offset: 5px;
+}
+
+.center-spin-button:focus {
+  outline: 3px solid #3498db;
+  outline-offset: 3px;
+}
+
+/* ✅ High Contrast Mode */
+@media (prefers-contrast: high) {
+  .modern-wheel {
+    border-color: #000000;
+    box-shadow: 0 0 0 6px #000000;
+  }
+
+  .modern-wheel-slot {
+    border-color: #000000;
+  }
+
+  .slot-name,
+  .slot-value {
+    color: #000000;
+    text-shadow: none;
+  }
+}
+
+/* ✅ Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .modern-wheel {
+    transition: none;
+  }
+
+  .center-spin-button:hover {
+    transform: none;
+  }
+
+  .modern-wheel-slot:hover {
+    transform: none;
+  }
+
+  .modern-result-display {
+    animation: none;
+  }
+
+  .modern-pointer {
+    animation: none;
+  }
+}

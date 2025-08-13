@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="FHE Lucky Spin Game" />
+    <title>FHE Lucky Spin</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!-- Share modal placeholders to neutralize any legacy share-modal.js -->
+    <div id="share-modal" style="display: none"></div>
+    <div id="share-modal-open" style="display: none"></div>
+    <div id="share-modal-close" style="display: none"></div>
+    <script>
+      try {
+        ["share-modal", "share-modal-open", "share-modal-close"].forEach((id) => {
+          if (!document.getElementById(id)) {
+            const el = document.createElement("div");
+            el.id = id;
+            el.style.display = "none";
+            document.body.appendChild(el);
+          }
+        });
+      } catch (e) {}
+    </script>
+    <!-- Zama Relayer SDK UMD CDN per official guide -->
+    <script src="https://cdn.zama.ai/relayer-sdk-js/0.1.0-9/relayer-sdk-js.umd.cjs" type="text/javascript"></script>
+    <script>
+      // Alias for existing code expecting window.ZamaRelayerSDK (no console logs for production)
+      try {
+        if (!window.ZamaRelayerSDK && window.relayerSDK) {
+          window.ZamaRelayerSDK = window.relayerSDK;
+        }
+      } catch (e) {}
+    </script>
+  </body>
+</html>
